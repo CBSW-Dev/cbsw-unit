@@ -2,13 +2,14 @@
 #include "suite/fixture.hpp"
 #include "suite/before-each.hpp"
 #include "suite/after-each.hpp"
+#include "suite/runner.hpp"
 
 #include "report/ireporter.hpp"
 
 #include "assert/assertion-exception.hpp"
 
-#include "isettings.hpp"
-#include "runner.hpp"
+#include "settings/isettings.hpp"
+
 
 //Macros
 #include "suite/case-macro.hpp"

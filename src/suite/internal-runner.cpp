@@ -6,6 +6,8 @@
 #include "report/report.hpp"
 #include "output/color-support-ostream-output.hpp"
 
+#include "settings/argument-parser.hpp"
+
 namespace CBSW::Unit {
     InternalRunner::InternalRunner():
         _output(new ColorSupportOStreamOutput(std::cout)),
@@ -19,9 +21,9 @@ namespace CBSW::Unit {
         delete _output;
     }
 
-    void InternalRunner::initialise(int argc, char** argv) noexcept {
-        (void)argc;
-        (void)argv;
+    void InternalRunner::initialise(int argc, char** argv) {
+        ArgumentParser argumentParser(argc, argv);
+        _settings.loadFromArgs(argumentParser);
     }
 
     Output& InternalRunner::output() noexcept {

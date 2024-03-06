@@ -9,7 +9,7 @@ set(CBSW_UNIT_INCLUDE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include)
 set(CBSW_UNIT_SOURCE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src)
 set(CBSW_UNIT_EXAMPLES_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/examples)
 
-configure_file(${CBSW_UNIT_INCLUDE_DIRECTORY}/version.hpp.in version.hpp)
+configure_file(${CBSW_UNIT_INCLUDE_DIRECTORY}/settings/version.hpp.in settings/version.hpp)
 
 add_library(cbsw-unit)
 add_subdirectory(${CBSW_UNIT_SOURCE_DIRECTORY})

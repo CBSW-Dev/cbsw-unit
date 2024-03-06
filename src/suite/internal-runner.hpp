@@ -1,6 +1,6 @@
 #pragma once
-#include "internal-settings.hpp"
-#include "runner.hpp"
+#include "settings/internal-settings.hpp"
+#include "suite/runner.hpp"
 
 namespace CBSW::Unit {
     class IReport;
@@ -10,7 +10,7 @@ namespace CBSW::Unit {
         InternalRunner();
         ~InternalRunner();
 
-        void initialise(int argc, char** argv) noexcept;
+        void initialise(int argc, char** argv);
 
         Output& output() noexcept override;
 

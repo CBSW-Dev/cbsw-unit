@@ -1,7 +1,7 @@
 #pragma once
 
 #include "suite/fixture.hpp"
-#include "isettings.hpp"
+#include "settings/isettings.hpp"
 
 namespace CBSW::Unit {
     class RootFixture: public Fixture {

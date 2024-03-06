@@ -6,6 +6,7 @@ target_sources(cbsw-unit PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/suite/case.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/suite/before-each.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/suite/after-each.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/suite/internal-runner.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/access/case-attorney.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/access/fixture-attorney.cpp
@@ -27,7 +28,8 @@ target_sources(cbsw-unit PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/report/deferred/deferred-reporter-action-list.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/report/report.cpp
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/internal-runner.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/internal-settings.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/settings/internal-settings.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/settings/argument-parser.cpp
+
     ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
 )
