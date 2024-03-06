@@ -7,13 +7,17 @@ namespace CBSW::Unit {
         //forward declare granularity friendship accessors. See https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/Friendship_and_the_Attorney-Client
         class CaseAttorney;
         class FixtureAttorney;
+        class BeforeEachAttorney;
     }
 
     class ICase;
+    class IBeforeEach;
 
     class IFixture: public IRunnable {
         friend class ::CBSW::Unit::Access::CaseAttorney;
+        friend class ::CBSW::Unit::Access::BeforeEachAttorney;
         friend class ::CBSW::Unit::Access::FixtureAttorney;
+
     public:
         using Description = const char*;
         using Filename = const char*;
@@ -26,6 +30,7 @@ namespace CBSW::Unit {
     protected:
         virtual void addCase(ICase& testCase) noexcept = 0;
         virtual void addFixture(IFixture& fixture) noexcept = 0;
+        virtual void addBeforeEach(IBeforeEach& beforeEach) noexcept = 0;
     private:
         static void * operator new(std::size_t) = delete;      // Prevent cases from being allocated on the heap
         static void * operator new [] (std::size_t) = delete;  // Prevent case arrays from being allocated on the heap

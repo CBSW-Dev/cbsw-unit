@@ -4,8 +4,10 @@ target_sources(cbsw-unit PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/suite/runnable-thread.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/suite/runnable-thread-pool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/suite/case.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/suite/before-each.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/access/case-attorney.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/access/fixture-attorney.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/access/before-each-attorney.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/assert/exception.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/assert/assertion-exception.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/assert/unhandled-exception.cpp
@@ -13,6 +15,7 @@ target_sources(cbsw-unit PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/output/output-indent.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/output/ostream-output.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/output/color-support-ostream-output.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/report/ireporter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/report/spec/spec-reporter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/report/deferred/deferred-reporter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/report/deferred/deferred-reporter-action-list.cpp

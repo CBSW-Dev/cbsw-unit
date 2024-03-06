@@ -10,6 +10,7 @@ namespace CBSW::Unit {
         Fixture(IFixture& parent, Description description, Filename filename, LineNumber lineNumber) noexcept;
     private:
         void addCase(ICase& testCase) noexcept override;
+        void addBeforeEach(IBeforeEach& beforeEach) noexcept override;
         void addFixture(IFixture& fixture) noexcept override;
 
         void run(IReporter& reporter, IReport& report) noexcept override;
@@ -25,5 +26,10 @@ namespace CBSW::Unit {
 
         using RunnableList = std::list<IRunnable*>;
         RunnableList _runnables;
+
+        using BeforeEachList = std::list<IBeforeEach*>;
+        BeforeEachList _beforeEachs;
+    private:
+        bool runBeforeEachs(IReporter& reporter, IReport& report);
     };
 }
