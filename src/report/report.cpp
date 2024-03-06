@@ -1,6 +1,8 @@
 #include "pch.hpp"
 #include "report.hpp"
 
+#include "utility/unused.hpp"
+
 namespace CBSW::Unit {
     void Report::onFailure(const ICase& testCase, const Exception& failure) noexcept {
         _failedCases.push_back(FailedCase{&testCase, failure});

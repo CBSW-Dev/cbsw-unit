@@ -6,6 +6,7 @@
 #include "suite/iafter-each.hpp"
 #include "access/fixture-attorney.hpp"
 #include "report/ireporter.hpp"
+#include "report/ireport.hpp"
 
 namespace CBSW::Unit {
     Fixture::Fixture(IFixture& parent, Description description, Filename filename, LineNumber lineNumber) noexcept:
@@ -36,13 +37,9 @@ namespace CBSW::Unit {
     void Fixture::run(IReporter& reporter, IReport& report) noexcept {
         reporter.onBeginFixture(*this);
         for (IRunnable* runnable: _runnables) {
-            if (!runBeforeEachs(reporter, report)) {
-                return;
-            }
+            runBeforeEachs(reporter, report);
             runnable->run(reporter, report);
-            if (!runAfterEachs(reporter, report)) {
-                return;
-            }
+            runAfterEachs(reporter, report);
         }
         reporter.onEndFixture(*this);
     }
@@ -63,31 +60,15 @@ namespace CBSW::Unit {
         return _lineNumber;
     }
 
-    bool Fixture::runBeforeEachs(IReporter& reporter, IReport& report) {
+    void Fixture::runBeforeEachs(IReporter& reporter, IReport& report) noexcept {
         for (IBeforeEach* beforeEach: _beforeEachs) {
-            try {
-                beforeEach->run(reporter, report);
-            }
-            catch (...) {
-                reporter.onCriticalError("Before Each: Unhandled Exception", beforeEach->filename(), beforeEach->lineNumber());
-                return false;
-            }
+            beforeEach->run(reporter, report);
         }
-
-        return true;
     }
 
-    bool Fixture::runAfterEachs(IReporter& reporter, IReport& report) {
+    void Fixture::runAfterEachs(IReporter& reporter, IReport& report) noexcept {
         for (IAfterEach* afterEach: _afterEachs) {
-            try {
-                afterEach->run(reporter, report);
-            }
-            catch (...) {
-                reporter.onCriticalError("After Each: Unhandled Exception", afterEach->filename(), afterEach->lineNumber());
-                return false;
-            }
+            afterEach->run(reporter, report);
         }
-
-        return true;
     }
 }

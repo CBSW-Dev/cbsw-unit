@@ -8,7 +8,7 @@ namespace CBSW::Unit {
     public:
         friend class Fixture;
 
-        using Function = void (*)();
+        using Function = void (*)() noexcept;
 
         BeforeEach(IFixture& fixture, Function function, Filename filename, LineNumber lineNumber) noexcept;
     private:

@@ -25,6 +25,12 @@ namespace CBSW::Unit {
         void onCaseSuccess(const ICase& testCase) noexcept override;
         void onCaseFailure( const Exception& exception) noexcept override;
         void onEndCase(const ICase& testCase) noexcept override;
+
+        void onBeginBeforeEach(const IBeforeEach& beforeEach) noexcept override;
+        void onEndBeforeEach(const IBeforeEach& beforeEach) noexcept override;
+
+        void onBeginAfterEach(const IAfterEach& afterEach) noexcept override;
+        void onEndAfterEach(const IAfterEach& afterEach) noexcept override;
     public:
         void resolveActions() noexcept;
     private:

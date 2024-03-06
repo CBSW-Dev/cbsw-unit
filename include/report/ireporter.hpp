@@ -31,8 +31,5 @@ namespace CBSW::Unit {
 
         virtual void onBeginAfterEach(const IAfterEach& afterEach) noexcept;
         virtual void onEndAfterEach(const IAfterEach& afterEach) noexcept;
-
-        virtual void onCriticalError(const std::string& message, const char* filename, std::uint32_t lineNumber);
-
     };
 }

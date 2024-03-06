@@ -16,7 +16,7 @@ namespace CBSW::Unit {
             (reporter.*_function)(_parameter);
         }
 
-        DeferredReporterAction* clone() const override {
+        DeferredReporterAction* clone() const noexcept override {
             return new DeferredReporterFunctionAction<TParameter>(_parameter, _function);
         }
     private:
@@ -37,7 +37,7 @@ namespace CBSW::Unit {
             (reporter.*_function)(_parameter);
         }
 
-        DeferredReporterAction* clone() const override {
+        DeferredReporterAction* clone() const noexcept override {
             return new DeferredReporterFunctionAction<Exception>(_parameter, _function);
         }
     private:
@@ -57,7 +57,7 @@ namespace CBSW::Unit {
             (reporter.*_function)();
         }
 
-        DeferredReporterAction* clone() const override {
+        DeferredReporterAction* clone() const noexcept override {
             return new DeferredReporterFunctionAction<void>(_function);
         }
     private:

@@ -34,7 +34,7 @@ namespace CBSW::Unit {
         using AfterEachList = std::list<IAfterEach*>;
         AfterEachList _afterEachs;
     private:
-        bool runBeforeEachs(IReporter& reporter, IReport& report);
-        bool runAfterEachs(IReporter& reporter, IReport& report);
+        void runBeforeEachs(IReporter& reporter, IReport& report) noexcept;
+        void runAfterEachs(IReporter& reporter, IReport& report) noexcept;
     };
 }

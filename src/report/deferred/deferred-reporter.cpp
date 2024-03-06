@@ -40,6 +40,23 @@ namespace CBSW::Unit {
         _actions.push_back(new DeferredReporterFunctionAction<ICase>(testCase, &IReporter::onEndCase));
     }
 
+    void DeferredReporter::onBeginBeforeEach(const IBeforeEach& beforeEach) noexcept {
+        _actions.push_back(new DeferredReporterFunctionAction<IBeforeEach>(beforeEach, &IReporter::onBeginBeforeEach));
+    }
+
+    void DeferredReporter::onEndBeforeEach(const IBeforeEach& beforeEach) noexcept {
+        _actions.push_back(new DeferredReporterFunctionAction<IBeforeEach>(beforeEach, &IReporter::onEndBeforeEach));
+    }
+
+    void DeferredReporter::onBeginAfterEach(const IAfterEach& afterEach) noexcept {
+        _actions.push_back(new DeferredReporterFunctionAction<IAfterEach>(afterEach, &IReporter::onBeginAfterEach));
+    }
+
+    void DeferredReporter::onEndAfterEach(const IAfterEach& afterEach) noexcept {
+        _actions.push_back(new DeferredReporterFunctionAction<IAfterEach>(afterEach, &IReporter::onEndAfterEach));
+    }
+
+
     void DeferredReporter::resolveActions() noexcept {
         {
             std::lock_guard<std::mutex> lock(_outputMutex);

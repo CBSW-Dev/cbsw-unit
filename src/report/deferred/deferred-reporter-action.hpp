@@ -10,6 +10,6 @@ namespace CBSW::Unit {
 
         virtual void run(IReporter& deferred) noexcept = 0;
 
-        virtual DeferredReporterAction* clone() const = 0;
+        virtual DeferredReporterAction* clone() const noexcept = 0;
     };
 }

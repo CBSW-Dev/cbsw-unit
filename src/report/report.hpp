@@ -17,5 +17,6 @@ namespace CBSW::Unit {
         FailedCases _failedCases;
         SuccessfulCases _successfulCases;
         SkippedCases _skippedCases;
+        bool _criticalError = false;
     };
 }
