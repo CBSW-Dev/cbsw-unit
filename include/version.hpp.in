@@ -1,0 +1,15 @@
+#pragma once
+
+#include <cstdint>
+
+namespace CBSW::Unit {
+    class Version {
+        static constexpr const std::uint16_t major() {
+            return @CBSW_Unit_VERSION_MAJOR@;
+        }
+
+        static constexpr const std::uint16_t minor() {
+            return @CBSW_Unit_VERSION_MINOR@;
+        }
+    };
+}
