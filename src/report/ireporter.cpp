@@ -41,6 +41,14 @@ namespace CBSW::Unit {
         unused(beforeEach);
     }
 
+    void IReporter::onBeginAfterEach(const IAfterEach& afterEach) noexcept {
+        unused(afterEach);
+    }
+
+    void IReporter::onEndAfterEach(const IAfterEach& afterEach) noexcept {
+        unused(afterEach);
+    }
+
     void IReporter::onCriticalError(const std::string& message, const char* filename, std::uint32_t lineNumber) {
         unused(message, filename, lineNumber);
     }

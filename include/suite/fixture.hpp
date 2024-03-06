@@ -11,6 +11,7 @@ namespace CBSW::Unit {
     private:
         void addCase(ICase& testCase) noexcept override;
         void addBeforeEach(IBeforeEach& beforeEach) noexcept override;
+        void addAfterEach(IAfterEach& afterEach) noexcept override;
         void addFixture(IFixture& fixture) noexcept override;
 
         void run(IReporter& reporter, IReport& report) noexcept override;
@@ -29,7 +30,11 @@ namespace CBSW::Unit {
 
         using BeforeEachList = std::list<IBeforeEach*>;
         BeforeEachList _beforeEachs;
+
+        using AfterEachList = std::list<IAfterEach*>;
+        AfterEachList _afterEachs;
     private:
         bool runBeforeEachs(IReporter& reporter, IReport& report);
+        bool runAfterEachs(IReporter& reporter, IReport& report);
     };
 }

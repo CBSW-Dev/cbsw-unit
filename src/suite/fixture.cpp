@@ -3,6 +3,7 @@
 #include "suite/fixture.hpp"
 #include "suite/icase.hpp"
 #include "suite/ibefore-each.hpp"
+#include "suite/iafter-each.hpp"
 #include "access/fixture-attorney.hpp"
 #include "report/ireporter.hpp"
 
@@ -28,6 +29,10 @@ namespace CBSW::Unit {
         _beforeEachs.push_back(&beforeEach);
     }
 
+    void Fixture::addAfterEach(IAfterEach& afterEach) noexcept {
+        _afterEachs.push_back(&afterEach);
+    }
+
     void Fixture::run(IReporter& reporter, IReport& report) noexcept {
         reporter.onBeginFixture(*this);
         for (IRunnable* runnable: _runnables) {
@@ -35,6 +40,9 @@ namespace CBSW::Unit {
                 return;
             }
             runnable->run(reporter, report);
+            if (!runAfterEachs(reporter, report)) {
+                return;
+            }
         }
         reporter.onEndFixture(*this);
     }
@@ -62,6 +70,20 @@ namespace CBSW::Unit {
             }
             catch (...) {
                 reporter.onCriticalError("Before Each: Unhandled Exception", beforeEach->filename(), beforeEach->lineNumber());
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    bool Fixture::runAfterEachs(IReporter& reporter, IReport& report) {
+        for (IAfterEach* afterEach: _afterEachs) {
+            try {
+                afterEach->run(reporter, report);
+            }
+            catch (...) {
+                reporter.onCriticalError("After Each: Unhandled Exception", afterEach->filename(), afterEach->lineNumber());
                 return false;
             }
         }

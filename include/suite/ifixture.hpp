@@ -8,14 +8,17 @@ namespace CBSW::Unit {
         class CaseAttorney;
         class FixtureAttorney;
         class BeforeEachAttorney;
+        class AfterEachAttorney;
     }
 
     class ICase;
     class IBeforeEach;
+    class IAfterEach;
 
     class IFixture: public IRunnable {
         friend class ::CBSW::Unit::Access::CaseAttorney;
         friend class ::CBSW::Unit::Access::BeforeEachAttorney;
+        friend class ::CBSW::Unit::Access::AfterEachAttorney;
         friend class ::CBSW::Unit::Access::FixtureAttorney;
 
     public:
@@ -31,6 +34,7 @@ namespace CBSW::Unit {
         virtual void addCase(ICase& testCase) noexcept = 0;
         virtual void addFixture(IFixture& fixture) noexcept = 0;
         virtual void addBeforeEach(IBeforeEach& beforeEach) noexcept = 0;
+        virtual void addAfterEach(IAfterEach& afterEach) noexcept = 0;
     private:
         static void * operator new(std::size_t) = delete;      // Prevent cases from being allocated on the heap
         static void * operator new [] (std::size_t) = delete;  // Prevent case arrays from being allocated on the heap

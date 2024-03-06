@@ -8,6 +8,7 @@ namespace CBSW::Unit {
     class IFixture;
     class ICase;
     class IBeforeEach;
+    class IAfterEach;
     class Exception;
 
     class IReporter {
@@ -27,6 +28,9 @@ namespace CBSW::Unit {
 
         virtual void onBeginBeforeEach(const IBeforeEach& beforeEach) noexcept;
         virtual void onEndBeforeEach(const IBeforeEach& beforeEach) noexcept;
+
+        virtual void onBeginAfterEach(const IAfterEach& afterEach) noexcept;
+        virtual void onEndAfterEach(const IAfterEach& afterEach) noexcept;
 
         virtual void onCriticalError(const std::string& message, const char* filename, std::uint32_t lineNumber);
 
