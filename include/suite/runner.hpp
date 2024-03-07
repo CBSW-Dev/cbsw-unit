@@ -19,4 +19,4 @@ namespace CBSW::Unit {
     };
 }
 
-extern int cbsw_unit_main(::CBSW::Unit::Runner& runner);
+extern int cbsw_unit_main(int argc, char** argv, ::CBSW::Unit::Runner& runner);

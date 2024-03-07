@@ -5,6 +5,7 @@
 #include <list>
 #include <map>
 #include <set>
+#include <vector>
 #include <string>
 #include <iostream>
 #include <sstream>

@@ -29,7 +29,7 @@ suite("Test Suite") {
     }
 }
 
-int cbsw_unit_main(::CBSW::Unit::Runner& runner) {
+int cbsw_unit_main(int argc, char** argv, ::CBSW::Unit::Runner& runner) {
     CustomReporter reporter(runner.output());
     runner.setReporter(reporter);
     return runner.run();

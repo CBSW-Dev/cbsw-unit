@@ -10,7 +10,7 @@ namespace CBSW::Unit {
         InternalRunner() noexcept;
         ~InternalRunner() noexcept;
 
-        int initialise(int argc, char** argv, int (*next)());
+        int initialise(int argc, char** argv, int (*next)(int, char**));
 
         Output& output() noexcept override;
 

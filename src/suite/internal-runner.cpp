@@ -11,6 +11,8 @@
 #include "settings/version.hpp"
 #include "settings/argument-parser.hpp"
 
+#include <vector>
+
 namespace CBSW::Unit {
     namespace {
         void printVersion() {
@@ -46,7 +48,7 @@ namespace CBSW::Unit {
         }
     }
 
-    int InternalRunner::initialise(int argc, char** argv, int (*next)()) {
+    int InternalRunner::initialise(int argc, char** argv, int (*next)(int, char**)) {
         ArgumentParser argumentParser(argc, argv);
         _settings.loadFromArgs(argumentParser);
 
@@ -62,7 +64,14 @@ namespace CBSW::Unit {
             return 0;
         }
 
-        return next();
+        std::vector<char*> strippedArgs;
+        for (int i = 0; i < argc; ++i) {
+            if (std::string(argv[i]).substr(0, 11) != "--cbsw-unit") {
+                strippedArgs.push_back(argv[i]);
+            }
+        }
+
+        return next(strippedArgs.size(), strippedArgs.data());
     }
 
     Output& InternalRunner::output() noexcept {
