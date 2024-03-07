@@ -35,7 +35,7 @@ namespace CBSW::Unit {
         }
 
         void localLevelTrace(Output& output) noexcept {
-            output << foregroundGrey;
+            output << foregroundDarkGrey;
         }
 
         Output::Levels localLevels = {
