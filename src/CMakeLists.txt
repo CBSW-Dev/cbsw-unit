@@ -24,6 +24,8 @@ target_sources(cbsw-unit PRIVATE
 
     ${CMAKE_CURRENT_SOURCE_DIR}/report/ireporter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/report/spec/spec-reporter.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/report/dot/dot-reporter.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/report/min/min-reporter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/report/deferred/deferred-reporter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/report/deferred/deferred-reporter-action-list.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/report/report.cpp

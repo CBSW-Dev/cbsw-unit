@@ -44,10 +44,13 @@ namespace CBSW::Unit {
         _failureNumber(1)
     {}
 
-    void SpecReporter::onBegin() noexcept {}
+    void SpecReporter::onBegin() noexcept {
+        (*_output) << _output->endl;
+    }
 
     void SpecReporter::onEnd(const IReport& report) noexcept {
         printOutputReport(*_output, report);
+        (*_output) << _output->endl;
     }
 
     void SpecReporter::onBeginFixture(const IFixture& fixture) noexcept {

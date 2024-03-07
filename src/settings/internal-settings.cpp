@@ -35,7 +35,7 @@ namespace CBSW::Unit {
 
 
         using ValidReporters = StringSet;
-        ValidReporters validReporters = {"spec"};
+        ValidReporters validReporters = {"spec", "dot", "min"};
         ValidReporters validColorSupport = {"none", "ansi"};
 
         void loadValidSetStringFromArgs(std::string& result, const ArgumentParser& arguments, const StringSet& set, const std::string& argument) {

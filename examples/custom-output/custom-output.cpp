@@ -17,7 +17,8 @@ namespace {
 
 CustomOutput::CustomOutput(std::ostream& stream):
     _stream(stream),
-    _index(0)
+    _index(0),
+    _escape(false)
 {}
 
 void CustomOutput::printRainbow(char character) {
@@ -29,7 +30,20 @@ void CustomOutput::printRainbow(char character) {
 }
 
 ::CBSW::Unit::Output& CustomOutput::operator<< (char value) noexcept {
-    printRainbow(value);
+    if (value & 0x80) {
+         //UTF encoding
+        if (!_escape) {
+            //first encoded
+            printRainbow(value);
+            _escape = true;
+        } else {
+            //continations
+            _stream << value;
+        }
+    } else {
+        _escape = false;
+        printRainbow(value);
+    }
     return *this;
 }
 
@@ -39,7 +53,7 @@ void CustomOutput::printRainbow(char character) {
 
 ::CBSW::Unit::Output& CustomOutput::operator<< (const std::string& value) noexcept {
     for (auto character: value) {
-        printRainbow(character);
+        this->operator<<(character);
     }
     return *this;
 }
@@ -138,4 +152,24 @@ void CustomOutput::printRainbow(char character) {
 
 void CustomOutput::flush() noexcept {
     _stream.flush();
+}
+
+constexpr const char* utf8Tick = "\xE2\x9C\x94";
+constexpr const char* utf8Cross = "\xE2\x9C\x98";
+
+void localCharactersTick(::CBSW::Unit::Output& output) noexcept {
+    output << utf8Tick;
+}
+
+void localCharactersCross(::CBSW::Unit::Output& output) noexcept {
+    output << utf8Cross;
+}
+
+::CBSW::Unit::Output::Characters localCharacters = {
+    &localCharactersTick,
+    &localCharactersCross
+};
+
+const ::CBSW::Unit::Output::Characters& CustomOutput::characters() const noexcept {
+    return localCharacters;
 }

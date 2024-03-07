@@ -36,9 +36,12 @@ public:
     Output& operator<< (void (*func)(Output&) noexcept) noexcept override;
 
     void flush() noexcept override;
+
+    const Characters& characters() const noexcept override;
 private:
     void printRainbow(char character);
 private:
     std::ostream& _stream;
     uint32_t _index;
+    bool _escape;
 };

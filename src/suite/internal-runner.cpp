@@ -2,6 +2,8 @@
 #include "internal-runner.hpp"
 #include "suite/root-fixture.hpp"
 #include "report/spec/spec-reporter.hpp"
+#include "report/dot/dot-reporter.hpp"
+#include "report/min/min-reporter.hpp"
 #include "report/deferred/deferred-reporter.hpp"
 #include "report/report.hpp"
 #include "output/ansi-color-ostream-output.hpp"
@@ -71,8 +73,14 @@ namespace CBSW::Unit {
     }
 
     void InternalRunner::initialiseReporter() noexcept {
-        //default case
-        _reporter = new SpecReporter(*_output);
+        if (_settings.reporter() == "dot") {
+            _reporter = new DotReporter(*_output);
+        } else if (_settings.reporter() == "min") {
+            _reporter = new MinReporter(*_output);
+        } else {
+            //default case
+            _reporter = new SpecReporter(*_output);
+        }
     }
 
     void InternalRunner::initialiseOutput() noexcept {
