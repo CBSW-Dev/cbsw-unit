@@ -31,6 +31,8 @@ namespace CBSW::Unit {
 
         void onBeginAfterEach(const IAfterEach& afterEach) noexcept override;
         void onEndAfterEach(const IAfterEach& afterEach) noexcept override;
+
+        void setOutput(Output& output) noexcept override;
     public:
         void resolveActions() noexcept;
     private:

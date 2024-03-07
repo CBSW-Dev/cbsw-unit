@@ -40,18 +40,18 @@ namespace CBSW::Unit {
         }
     }
     SpecReporter::SpecReporter(Output& output) noexcept:
-        _output(output),
+        _output(&output),
         _failureNumber(1)
     {}
 
     void SpecReporter::onBegin() noexcept {}
 
     void SpecReporter::onEnd(const IReport& report) noexcept {
-        printOutputReport(_output, report);
+        printOutputReport(*_output, report);
     }
 
     void SpecReporter::onBeginFixture(const IFixture& fixture) noexcept {
-        _output << _output.status().info << _indent << fixture.description() << _output.status().reset << _output.endl;
+        (*_output) << _output->status().info << _indent << fixture.description() << _output->status().reset << _output->endl;
         ++_indent;
     }
 
@@ -65,15 +65,19 @@ namespace CBSW::Unit {
     }
 
     void SpecReporter::onCaseSuccess(const ICase& testCase) noexcept {
-        _output << _output.status().success << _indent << _output.characters().tick << ' ' << testCase.description() << _output.status().reset << _output.endl;
+        (*_output) << _output->status().success << _indent << _output->characters().tick << ' ' << testCase.description() << _output->status().reset << _output->endl;
     }
 
     void SpecReporter::onCaseFailure(const Exception& exception) noexcept {
-        _output << _output.status().failure << _indent << _failureNumber << ") " << exception.testCase().description() << _output.status().reset << _output.endl;
+        (*_output) << _output->status().failure << _indent << _failureNumber << ") " << exception.testCase().description() << _output->status().reset << _output->endl;
         ++_failureNumber;
     }
 
     void SpecReporter::onEndCase(const ICase& testCase) noexcept {
         unused(testCase);
+    }
+
+    void SpecReporter::setOutput(Output& output) noexcept {
+        _output = &output;
     }
 }

@@ -56,6 +56,9 @@ namespace CBSW::Unit {
         _actions.push_back(new DeferredReporterFunctionAction<IAfterEach>(afterEach, &IReporter::onEndAfterEach));
     }
 
+    void DeferredReporter::setOutput(Output& output) noexcept {
+        _deferred.setOutput(output);
+    }
 
     void DeferredReporter::resolveActions() noexcept {
         {

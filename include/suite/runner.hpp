@@ -15,6 +15,7 @@ namespace CBSW::Unit {
         virtual int run(IReporter& reporter) noexcept = 0;
 
         virtual void setReporter(IReporter& reporter) noexcept = 0;
+        virtual void setOutput(Output& output) noexcept = 0;
     };
 }
 

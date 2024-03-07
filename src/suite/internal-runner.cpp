@@ -10,6 +10,7 @@
 
 namespace CBSW::Unit {
     InternalRunner::InternalRunner() noexcept:
+        _deleteOutput(true),
         _output(nullptr),
         _deleteReporter(true),
         _reporter(nullptr),
@@ -21,7 +22,9 @@ namespace CBSW::Unit {
         if (_deleteReporter) {
             delete _reporter;
         }
-        delete _output;
+        if (_deleteOutput) {
+            delete _output;
+        }
     }
 
     void InternalRunner::initialise(int argc, char** argv) {
@@ -56,6 +59,15 @@ namespace CBSW::Unit {
         }
         _reporter = &reporter;
         _deleteReporter = false;
+    }
+
+    void InternalRunner::setOutput(Output& output) noexcept {
+        if (_deleteOutput) {
+            delete _output;
+        }
+        _output = &output;
+        _reporter->setOutput(output);
+        _deleteOutput = false;
     }
 
     void InternalRunner::initialiseReporter() noexcept {

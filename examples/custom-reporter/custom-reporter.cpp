@@ -52,3 +52,7 @@ void CustomReporter::onBeginAfterEach(const ::CBSW::Unit::IAfterEach& afterEach)
 void CustomReporter::onEndAfterEach(const ::CBSW::Unit::IAfterEach& afterEach) noexcept {
     _output << _output.levels().trace << (++_index) << ") onEndAfterEach" << _output.status().reset << _output.endl;;
 }
+
+void CustomReporter::setOutput(::CBSW::Unit::Output& output) noexcept {
+    _output = output;
+}

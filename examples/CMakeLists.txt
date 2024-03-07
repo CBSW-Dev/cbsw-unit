@@ -12,3 +12,10 @@ target_sources(cbsw-unit-custom-reporter PRIVATE
 )
 target_include_directories(cbsw-unit-custom-reporter PRIVATE ${CBSW_UNIT_INCLUDE_DIRECTORY})
 target_link_libraries(cbsw-unit-custom-reporter cbsw-unit)
+
+add_executable(cbsw-unit-custom-output ${CBSW_UNIT_EXAMPLES_DIRECTORY}/custom-output/main.cpp)
+target_sources(cbsw-unit-custom-output PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/custom-output/custom-output.cpp
+)
+target_include_directories(cbsw-unit-custom-output PRIVATE ${CBSW_UNIT_INCLUDE_DIRECTORY})
+target_link_libraries(cbsw-unit-custom-output cbsw-unit)

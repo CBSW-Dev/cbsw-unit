@@ -10,6 +10,7 @@ namespace CBSW::Unit {
     class IBeforeEach;
     class IAfterEach;
     class Exception;
+    class Output;
 
     class IReporter {
     public:
@@ -31,5 +32,7 @@ namespace CBSW::Unit {
 
         virtual void onBeginAfterEach(const IAfterEach& afterEach) noexcept;
         virtual void onEndAfterEach(const IAfterEach& afterEach) noexcept;
+
+        virtual void setOutput(Output& output) noexcept = 0;
     };
 }

@@ -20,10 +20,12 @@ namespace CBSW::Unit {
         int run(IReporter& reporter) noexcept override;
 
         void setReporter(IReporter& reporter) noexcept;
+        void setOutput(Output& output) noexcept;
     private:
         void initialiseReporter() noexcept;
         void initialiseOutput() noexcept;
     private:
+        bool _deleteOutput;
         Output* _output;
         bool _deleteReporter;
         IReporter* _reporter;
