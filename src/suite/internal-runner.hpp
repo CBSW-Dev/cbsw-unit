@@ -18,11 +18,14 @@ namespace CBSW::Unit {
 
         int run() noexcept override;
         int run(IReporter& reporter) noexcept override;
+
+        void setReporter(IReporter& reporter) noexcept;
     private:
         void initialiseReporter() noexcept;
         void initialiseOutput() noexcept;
     private:
         Output* _output;
+        bool _deleteReporter;
         IReporter* _reporter;
         IReport* _report;
         InternalSettings _settings;

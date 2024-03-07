@@ -57,7 +57,8 @@
         "fstream": "cpp",
         "map": "cpp",
         "set": "cpp",
-        "sstream": "cpp"
+        "sstream": "cpp",
+        "cbsw-unit": "cpp"
     },
     "cmake.configureOnOpen": true
 }

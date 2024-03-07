@@ -11,13 +11,16 @@
 namespace CBSW::Unit {
     InternalRunner::InternalRunner() noexcept:
         _output(nullptr),
+        _deleteReporter(true),
         _reporter(nullptr),
         _report(new Report())
     {}
 
     InternalRunner::~InternalRunner() noexcept {
         delete _report;
-        delete _reporter;
+        if (_deleteReporter) {
+            delete _reporter;
+        }
         delete _output;
     }
 
@@ -45,6 +48,14 @@ namespace CBSW::Unit {
     int InternalRunner::run(IReporter& reporter) noexcept {
         cbsw_unit_root_fixture().run(reporter, *_report, _settings);
         return EXIT_SUCCESS;
+    }
+
+    void InternalRunner::setReporter(IReporter& reporter) noexcept {
+        if (_deleteReporter) {
+            delete _reporter;
+        }
+        _reporter = &reporter;
+        _deleteReporter = false;
     }
 
     void InternalRunner::initialiseReporter() noexcept {

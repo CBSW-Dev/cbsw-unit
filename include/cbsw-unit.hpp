@@ -6,6 +6,8 @@
 
 #include "report/ireporter.hpp"
 
+#include "output/output.hpp"
+
 #include "assert/assertion-exception.hpp"
 
 #include "settings/isettings.hpp"
