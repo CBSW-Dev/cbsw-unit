@@ -20,7 +20,7 @@ target_sources(cbsw-unit PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/output/output.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/output/output-indent.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/output/ostream-output.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/output/color-support-ostream-output.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/output/ansi-color-ostream-output.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/report/ireporter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/report/spec/spec-reporter.cpp

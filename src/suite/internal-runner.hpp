@@ -7,8 +7,8 @@ namespace CBSW::Unit {
 
     class InternalRunner: public Runner {
     public:
-        InternalRunner();
-        ~InternalRunner();
+        InternalRunner() noexcept;
+        ~InternalRunner() noexcept;
 
         void initialise(int argc, char** argv);
 
@@ -18,6 +18,9 @@ namespace CBSW::Unit {
 
         int run() noexcept override;
         int run(IReporter& reporter) noexcept override;
+    private:
+        void initialiseReporter() noexcept;
+        void initialiseOutput() noexcept;
     private:
         Output* _output;
         IReporter* _reporter;

@@ -1,5 +1,5 @@
 #include "pch.hpp"
-#include "color-support-ostream-output.hpp"
+#include "ansi-color-ostream-output.hpp"
 
 namespace CBSW::Unit {
     namespace {
@@ -38,7 +38,7 @@ namespace CBSW::Unit {
             output << foregroundGrey;
         }
 
-        ColorSupportOStreamOutput::Levels localLevels = {
+        Output::Levels localLevels = {
             &localLevelCritical,
             &localLevelError,
             &localLevelWarning,
@@ -75,7 +75,7 @@ namespace CBSW::Unit {
             output << modifierReset;
         }
 
-        ColorSupportOStreamOutput::Status localStatus = {
+        Output::Status localStatus = {
             &localStatusSuccess,
             &localStatusFailure,
             &localStatusSkip,
@@ -96,21 +96,21 @@ namespace CBSW::Unit {
             output << utf8Cross;
         }
 
-        ColorSupportOStreamOutput::Characters localCharacters = {
+        Output::Characters localCharacters = {
             &localCharactersTick,
             &localCharactersCross
         };
     }
 
-    const ColorSupportOStreamOutput::Levels& ColorSupportOStreamOutput::levels() const noexcept {
+    const AnsiColorOStreamOutput::Levels& AnsiColorOStreamOutput::levels() const noexcept {
         return localLevels;
     }
 
-    const ColorSupportOStreamOutput::Status& ColorSupportOStreamOutput::status() const noexcept {
+    const AnsiColorOStreamOutput::Status& AnsiColorOStreamOutput::status() const noexcept {
         return localStatus;
     }
 
-    const ColorSupportOStreamOutput::Characters& ColorSupportOStreamOutput::characters() const noexcept {
+    const AnsiColorOStreamOutput::Characters& AnsiColorOStreamOutput::characters() const noexcept {
         return localCharacters;
     }
 }

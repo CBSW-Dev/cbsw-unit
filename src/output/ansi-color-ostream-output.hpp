@@ -3,7 +3,7 @@
 #include "ostream-output.hpp"
 
 namespace CBSW::Unit {
-    class ColorSupportOStreamOutput: public OStreamOutput {
+    class AnsiColorOStreamOutput: public OStreamOutput {
     public:
         using OStreamOutput::OStreamOutput;
     private:

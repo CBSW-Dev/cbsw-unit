@@ -7,33 +7,58 @@
 
 namespace CBSW::Unit {
     namespace {
-        using ValidReporters = std::set<std::string>;
+        class StringSet: public std::set<std::string> {
+        public:
+            using std::set<std::string>::set;
+
+            std::string join(const std::string& delimiter) const noexcept {
+                std::ostringstream ss;
+                std::string output;
+                iterator it = begin();
+                const iterator end = this->end();
+                if (it == end) {
+                    return "";
+                }
+                return contineJoin(it, end, delimiter);
+            }
+        private:
+            std::string contineJoin(iterator& it, const iterator& end, const std::string& delimiter) const noexcept {
+                std::stringstream output;
+                output << (*it);
+                ++it;
+                for (;it != end; ++it) {
+                    output << delimiter << (*it);
+                }
+                return output.str();
+            }
+        };
+
+
+        using ValidReporters = StringSet;
         ValidReporters validReporters = {"spec"};
+        ValidReporters validColorSupport = {"none", "ansi"};
 
-        std::string contineValidReportersString(ValidReporters::iterator& it, const ValidReporters::iterator& end) {
-            std::stringstream output;
-            output << (*it);
-            ++it;
-            for (;it != end; ++it) {
-                output << "," << (*it);
+        void loadValidSetStringFromArgs(std::string& result, const ArgumentParser& arguments, const StringSet& set, const std::string& argument) {
+            ArgumentParser::Argument arg = arguments.getArgument(argument);
+            if (!arg.isValid) {
+                return;
             }
-            return output.str();
-        }
-
-        std::string validReportersString() {
-            std::ostringstream ss;
-            std::string output;
-            ValidReporters::iterator it = validReporters.begin();
-            const ValidReporters::iterator end = validReporters.end();
-            if (it == end) {
-                return "";
+            auto it = set.find(arg.value);
+            if (it == set.end()) {
+                std::string error = "Invalid command line option: ";
+                error += argument;
+                error += " must be one of [";
+                error += set.join(",");
+                error += "]";
+                throw std::runtime_error(error.c_str());
             }
-            return contineValidReportersString(it, end);
+            result =  arg.value;
         }
     }
     InternalSettings::InternalSettings():
         _reporter("spec"),
-        _threads(4)
+        _threads(4),
+        _colorSupport("none")
     {}
 
     const InternalSettings::ReporterType& InternalSettings::reporter() const noexcept {
@@ -44,24 +69,18 @@ namespace CBSW::Unit {
         return _threads;
     }
 
+    const InternalSettings::ColorSupportType& InternalSettings::colorSupport() const noexcept {
+        return _colorSupport;
+    }
+
     void InternalSettings::loadFromArgs(const ArgumentParser& arguments) {
         loadReporterFromArgs(arguments);
         loadThreadsFromArgs(arguments);
+        loadColorSupportFromArgs(arguments);
     }
 
     void InternalSettings::loadReporterFromArgs(const ArgumentParser& arguments) {
-        ArgumentParser::Argument argument = arguments.getArgument("--cbsw-unit-reporter");
-        if (!argument.isValid) {
-            return;
-        }
-        auto it = validReporters.find(argument.value);
-        if (it == validReporters.end()) {
-            std::string error = "Invalid command line option: --cbsw-unit-reporter must be one of [";
-            error += validReportersString();
-            error += "]";
-            throw std::runtime_error(error.c_str());
-        }
-        _reporter = argument.value;
+        loadValidSetStringFromArgs(_reporter, arguments, validReporters, "--cbsw-unit-reporter");
     }
 
     void InternalSettings::loadThreadsFromArgs(const ArgumentParser& arguments) {
@@ -82,5 +101,9 @@ namespace CBSW::Unit {
             throw std::runtime_error(error.c_str());
         }
         _threads = static_cast<uint8_t>(value);
+    }
+
+    void InternalSettings::loadColorSupportFromArgs(const ArgumentParser& arguments) {
+        loadValidSetStringFromArgs(_colorSupport, arguments, validColorSupport, "--cbsw-unit-color-support");
     }
 }

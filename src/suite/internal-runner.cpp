@@ -4,18 +4,18 @@
 #include "report/spec/spec-reporter.hpp"
 #include "report/deferred/deferred-reporter.hpp"
 #include "report/report.hpp"
-#include "output/color-support-ostream-output.hpp"
+#include "output/ansi-color-ostream-output.hpp"
 
 #include "settings/argument-parser.hpp"
 
 namespace CBSW::Unit {
-    InternalRunner::InternalRunner():
-        _output(new ColorSupportOStreamOutput(std::cout)),
-        _reporter(new SpecReporter(*_output)),
+    InternalRunner::InternalRunner() noexcept:
+        _output(nullptr),
+        _reporter(nullptr),
         _report(new Report())
     {}
 
-    InternalRunner::~InternalRunner() {
+    InternalRunner::~InternalRunner() noexcept {
         delete _report;
         delete _reporter;
         delete _output;
@@ -24,6 +24,9 @@ namespace CBSW::Unit {
     void InternalRunner::initialise(int argc, char** argv) {
         ArgumentParser argumentParser(argc, argv);
         _settings.loadFromArgs(argumentParser);
+
+        initialiseOutput();
+        initialiseReporter();
     }
 
     Output& InternalRunner::output() noexcept {
@@ -42,5 +45,19 @@ namespace CBSW::Unit {
     int InternalRunner::run(IReporter& reporter) noexcept {
         cbsw_unit_root_fixture().run(reporter, *_report, _settings);
         return EXIT_SUCCESS;
+    }
+
+    void InternalRunner::initialiseReporter() noexcept {
+        //default case
+        _reporter = new SpecReporter(*_output);
+    }
+
+    void InternalRunner::initialiseOutput() noexcept {
+        if (_settings.colorSupport() == "ansi") {
+            _output = new AnsiColorOStreamOutput(std::cout);
+        } else {
+            //default
+            _output = new OStreamOutput(std::cout);
+        }
     }
 }
