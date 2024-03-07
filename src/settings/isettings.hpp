@@ -15,5 +15,7 @@ namespace CBSW::Unit {
         virtual const ReporterType& reporter() const noexcept = 0;
         virtual ThreadsType threads() const noexcept = 0;
         virtual const ColorSupportType& colorSupport() const noexcept = 0;
+        virtual bool printVersion() const noexcept = 0;
+        virtual bool printHelp() const noexcept = 0;
     };
 }

@@ -6,10 +6,13 @@ namespace {
     ::CBSW::Unit::InternalRunner runner;
 }
 
+int delegateMain() {
+    return cbsw_unit_main(runner);
+}
 int main(int argc, char** argv) {
     try {
-        runner.initialise(argc, argv);
-        return cbsw_unit_main(runner);
+        runner.initialise(argc, argv, &delegateMain);
+
     } catch (std::exception& exception) {
         std::string error = exception.what();
         std::cout << "Application failed with exception: \r\n    " << error << std::endl;

@@ -54,11 +54,16 @@ namespace CBSW::Unit {
             }
             result =  arg.value;
         }
+
     }
+
+
     InternalSettings::InternalSettings():
         _reporter("spec"),
         _threads(4),
-        _colorSupport("none")
+        _colorSupport("none"),
+        _printVersion(false),
+        _printHelp(false)
     {}
 
     const InternalSettings::ReporterType& InternalSettings::reporter() const noexcept {
@@ -73,10 +78,20 @@ namespace CBSW::Unit {
         return _colorSupport;
     }
 
+    bool InternalSettings::printVersion() const noexcept {
+        return _printVersion;
+    }
+
+    bool InternalSettings::printHelp() const noexcept {
+        return _printHelp;
+    }
+
     void InternalSettings::loadFromArgs(const ArgumentParser& arguments) {
         loadReporterFromArgs(arguments);
         loadThreadsFromArgs(arguments);
         loadColorSupportFromArgs(arguments);
+        loadPrintHelpFromArgs(arguments);
+        loadPrintVersionFromArgs(arguments);
     }
 
     void InternalSettings::loadReporterFromArgs(const ArgumentParser& arguments) {
@@ -105,5 +120,15 @@ namespace CBSW::Unit {
 
     void InternalSettings::loadColorSupportFromArgs(const ArgumentParser& arguments) {
         loadValidSetStringFromArgs(_colorSupport, arguments, validColorSupport, "--cbsw-unit-color-support");
+    }
+
+    void InternalSettings::loadPrintHelpFromArgs(const ArgumentParser& arguments) {
+        ArgumentParser::Argument argument = arguments.getArgument("--cbsw-unit-help");
+        _printHelp = argument.isValid;
+    }
+
+    void InternalSettings::loadPrintVersionFromArgs(const ArgumentParser& arguments) {
+        ArgumentParser::Argument argument = arguments.getArgument("--cbsw-unit-version");
+        _printVersion = argument.isValid;
     }
 }

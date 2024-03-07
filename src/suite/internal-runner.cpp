@@ -8,9 +8,26 @@
 #include "report/report.hpp"
 #include "output/ansi-color-ostream-output.hpp"
 
+#include "settings/version.hpp"
 #include "settings/argument-parser.hpp"
 
 namespace CBSW::Unit {
+    namespace {
+        void printVersion() {
+            std::cout << "\r\ncbsw-unit v" << Version::major() << "." << Version::minor() << "." << Version::revision() << "\r\n" << std::endl;
+        }
+
+        void printHelp() {
+            std::cout   << "\r\ncbsw-unit command line options:\r\n"
+                << "    --cbsw-unit-reporter=<flag>                - specifies the reporter, <flag> can be one of [spec, min, dot]\r\n"
+                << "    --cbsw-unit-color-support=<flag>           - specifies the color support, <flag> can be one of [none, ansi]\r\n"
+                << "    --cbsw-unit-threads=<number>               - specifies the number of threads to use when running fixtures\r\n"
+                << "    --cbsw-unit-version                        - print the unit test library version and exit\r\n"
+                << "    --cbsw-unit-help                           - print this message and exit\r\n"
+                << std::endl;
+        }
+    }
+
     InternalRunner::InternalRunner() noexcept:
         _deleteOutput(true),
         _output(nullptr),
@@ -29,12 +46,23 @@ namespace CBSW::Unit {
         }
     }
 
-    void InternalRunner::initialise(int argc, char** argv) {
+    int InternalRunner::initialise(int argc, char** argv, int (*next)()) {
         ArgumentParser argumentParser(argc, argv);
         _settings.loadFromArgs(argumentParser);
 
         initialiseOutput();
         initialiseReporter();
+
+        if (_settings.printHelp() == true) {
+            printHelp();
+            return 0;
+        }
+        if (_settings.printVersion() == true) {
+            printVersion();
+            return 0;
+        }
+
+        return next();
     }
 
     Output& InternalRunner::output() noexcept {
