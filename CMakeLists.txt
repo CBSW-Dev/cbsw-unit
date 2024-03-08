@@ -5,7 +5,7 @@ if ("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
 endif ()
 
 
-project(CBSW_Unit VERSION 1.2.1)
+project(CBSW_Unit VERSION 1.2.2)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
@@ -14,13 +14,13 @@ set(CBSW_UNIT_INCLUDE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include)
 set(CBSW_UNIT_SOURCE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/src)
 set(CBSW_UNIT_EXAMPLES_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/examples)
 
-configure_file(${CBSW_UNIT_SOURCE_DIRECTORY}/settings/version.hpp.in settings/version.hpp)
+configure_file(${CBSW_UNIT_SOURCE_DIRECTORY}/settings/version.hpp.in src/settings/version.hpp)
 
 add_library(cbsw-unit)
 add_subdirectory(${CBSW_UNIT_SOURCE_DIRECTORY})
 
 target_precompile_headers(cbsw-unit PRIVATE ${CBSW_UNIT_SOURCE_DIRECTORY}/pch.hpp)
-target_include_directories(cbsw-unit PUBLIC "${PROJECT_BINARY_DIR}")
+target_include_directories(cbsw-unit PUBLIC "${PROJECT_BINARY_DIR}/src")
 target_include_directories(cbsw-unit PUBLIC "${CBSW_UNIT_INCLUDE_DIRECTORY}")
 target_include_directories(cbsw-unit PUBLIC "${CBSW_UNIT_SOURCE_DIRECTORY}")
 
