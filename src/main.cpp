@@ -1,4 +1,5 @@
 #include "suite/internal-runner.hpp"
+#include "plugin/plugins.hpp"
 
 #include <iostream>
 
@@ -10,9 +11,13 @@ int delegateMain(int argc, char** argv) {
     return cbsw_unit_main(argc, argv, runner);
 }
 
+int delegatePlugins(int argc, char** argv) {
+    return cbsw_unit_plugins().run(argc, argv, &delegateMain);
+}
+
 int main(int argc, char** argv) {
     try {
-        runner.initialise(argc, argv, &delegateMain);
+        return runner.initialise(argc, argv, &delegatePlugins);
 
     } catch (std::exception& exception) {
         std::string error = exception.what();
