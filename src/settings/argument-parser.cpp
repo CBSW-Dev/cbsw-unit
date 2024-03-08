@@ -1,10 +1,11 @@
 #include "pch.hpp"
 #include "argument-parser.hpp"
+#include "valid-library-arguments.hpp"
 
 namespace CBSW::Unit {
     namespace {
         inline bool isCbswUnitArgument(const std::string& argument) {
-            return argument.substr(0, 11) == "--cbsw-unit";
+            return ValidLibraryArguments::instance().find(argument) != ValidLibraryArguments::instance().end();
         }
 
         using KeyValuePair = std::pair<std::string, std::string>;
@@ -19,9 +20,9 @@ namespace CBSW::Unit {
         }
     }
 
-    ArgumentParser::ArgumentParser(int argc, char** argv) noexcept {
-        for (int i = 0; i < argc; ++i) {
-            std::string argument = argv[i];
+    ArgumentParser::ArgumentParser(const Arguments& arguments) noexcept {
+        for (auto arg: arguments) {
+            std::string argument(arg);
             if (isCbswUnitArgument(argument)) {
                 _args.insert(parseArgument(argument));
             }

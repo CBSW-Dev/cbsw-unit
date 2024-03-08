@@ -3,10 +3,10 @@
 #include "plugin/plugin.hpp"
 
 namespace CBSW::Unit {
-    using PluginFinalFunction = int (*)(int argc, char** argv);
+    using PluginFinalFunction = int (*)(Arguments& arguments);
     class Plugins {
     public:
-        int run(int argc, char** argv, PluginFinalFunction final);
+        int run(Arguments& arguments, PluginFinalFunction final);
 
         void registerPlugin(Plugin& plugin);
     private:

@@ -14,6 +14,6 @@ CBSW_UNIT_SUITE("Test Suite") {
     }
 }
 
-int cbsw_unit_main(int argc, char** argv, ::CBSW::Unit::Runner& runner) {
+int cbsw_unit_main(::CBSW::Unit::Arguments& arguments, ::CBSW::Unit::Runner& runner) {
     return runner.run();
 }

@@ -15,6 +15,10 @@ namespace {
 }
 
 namespace CBSW::Unit {
+    OutputIndent::OutputIndent():
+        _indent(0)
+    {}
+
     OutputIndent& OutputIndent::operator++() noexcept {
         ++_indent;
         return *this;

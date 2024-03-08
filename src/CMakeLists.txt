@@ -34,6 +34,7 @@ target_sources(cbsw-unit PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/plugin/plugins.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/settings/internal-settings.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/settings/valid-library-arguments.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/settings/argument-parser.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp

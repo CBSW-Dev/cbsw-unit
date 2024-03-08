@@ -1,12 +1,14 @@
 #pragma once
 
+#include "plugin/arguments.hpp"
+
 #include <map>
 #include <string>
 
 namespace CBSW::Unit {
     class ArgumentParser {
     public:
-        ArgumentParser(int argc, char** argv) noexcept;
+        ArgumentParser(const Arguments& arguments) noexcept;
 
         struct Argument {
             bool isValid;
@@ -17,5 +19,6 @@ namespace CBSW::Unit {
     private:
         using ArgMap = std::map<std::string, std::string>;
         ArgMap _args;
+
     };
 }

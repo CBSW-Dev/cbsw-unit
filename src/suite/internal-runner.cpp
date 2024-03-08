@@ -11,6 +11,7 @@
 #include "settings/version.hpp"
 #include "settings/argument-parser.hpp"
 
+#include "settings/valid-library-arguments.hpp"
 #include <vector>
 
 namespace CBSW::Unit {
@@ -48,8 +49,8 @@ namespace CBSW::Unit {
         }
     }
 
-    int InternalRunner::initialise(int argc, char** argv, int (*next)(int, char**)) {
-        ArgumentParser argumentParser(argc, argv);
+    int InternalRunner::initialise(Arguments& arguments, int (*next)(Arguments&)) {
+        ArgumentParser argumentParser(arguments);
         _settings.loadFromArgs(argumentParser);
 
         initialiseOutput();
@@ -64,14 +65,14 @@ namespace CBSW::Unit {
             return 0;
         }
 
-        std::vector<char*> strippedArgs;
-        for (int i = 0; i < argc; ++i) {
-            if (std::string(argv[i]).substr(0, 11) != "--cbsw-unit") {
-                strippedArgs.push_back(argv[i]);
+        //TODO: Algorithmic improvements, this could be O(N+M) by sorting the vector
+        for (auto it = arguments.begin(), end = arguments.end(); it != end; ++it) {
+            if (ValidLibraryArguments::instance().find(*it) != ValidLibraryArguments::instance().end()) {
+                it = arguments.erase(it);
             }
         }
 
-        return next(strippedArgs.size(), strippedArgs.data());
+        return next(arguments);
     }
 
     Output& InternalRunner::output() noexcept {

@@ -8,8 +8,8 @@ namespace CBSW::Unit {
             _final(final)
         {}
 
-        int next(int argc, char** argv) noexcept {
-            return _final(argc, argv);
+        int next(Arguments& arguments) noexcept {
+            return _final(arguments);
         }
     private:
         PluginFinalFunction _final;
@@ -22,15 +22,15 @@ namespace CBSW::Unit {
             _next(next)
         {}
 
-        int next(int argc, char** argv) noexcept {
-            return _plugin.initialise(argc, argv, _next);
+        int next(Arguments& arguments) noexcept {
+            return _plugin.initialise(arguments, _next);
         }
     private:
         Plugin &_plugin;
         PluginNextHandler& _next;
     };
 
-    int Plugins::run(int argc, char** argv, PluginFinalFunction final) {
+    int Plugins::run(Arguments& arguments, PluginFinalFunction final) {
         std::list<PluginNextHandler*> nextHandlers;
 
         PluginChainFinal* finalChain = new PluginChainFinal(final);
@@ -46,12 +46,16 @@ namespace CBSW::Unit {
         }
 
         //now next contains the first plugin in the chain
-        int output = next->next(argc, argv);
+        int output = next->next(arguments);
 
         for (PluginNextHandler* handler: nextHandlers) {
             delete handler;
         }
         return output;
+    }
+
+    void Plugins::registerPlugin(Plugin& plugin) {
+        _plugins.push_back(&plugin);
     }
 }
 

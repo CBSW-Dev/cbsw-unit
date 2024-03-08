@@ -7,17 +7,18 @@ namespace {
     ::CBSW::Unit::InternalRunner runner;
 }
 
-int delegateMain(int argc, char** argv) {
-    return cbsw_unit_main(argc, argv, runner);
+int delegateMain(::CBSW::Unit::Arguments& arguments) {
+    return cbsw_unit_main(arguments, runner);
 }
 
-int delegatePlugins(int argc, char** argv) {
-    return cbsw_unit_plugins().run(argc, argv, &delegateMain);
+int delegatePlugins(::CBSW::Unit::Arguments& arguments) {
+    return cbsw_unit_plugins().run(arguments, &delegateMain);
 }
 
 int main(int argc, char** argv) {
+    ::CBSW::Unit::Arguments arguments(argv, argv + argc);
     try {
-        return runner.initialise(argc, argv, &delegatePlugins);
+        return runner.initialise(arguments, &delegatePlugins);
 
     } catch (std::exception& exception) {
         std::string error = exception.what();
