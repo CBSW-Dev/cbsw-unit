@@ -19,3 +19,10 @@ target_sources(cbsw-unit-custom-output PRIVATE
 )
 target_include_directories(cbsw-unit-custom-output PRIVATE ${CBSW_UNIT_INCLUDE_DIRECTORY})
 target_link_libraries(cbsw-unit-custom-output cbsw-unit)
+
+add_executable(cbsw-unit-custom-plugin ${CBSW_UNIT_EXAMPLES_DIRECTORY}/custom-plugin/main.cpp)
+target_sources(cbsw-unit-custom-plugin PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/custom-plugin/custom-plugin.cpp
+)
+target_include_directories(cbsw-unit-custom-plugin PRIVATE ${CBSW_UNIT_INCLUDE_DIRECTORY})
+target_link_libraries(cbsw-unit-custom-plugin cbsw-unit)

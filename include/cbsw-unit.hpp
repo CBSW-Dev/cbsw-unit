@@ -12,6 +12,7 @@
 
 #include "settings/isettings.hpp"
 
+#include "plugin/plugin.hpp"
 
 //Macros
 #include "suite/case-macro.hpp"
