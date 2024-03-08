@@ -26,7 +26,7 @@ namespace CBSW::Unit {
         using Filename = const char*;
         using LineNumber = std::uint32_t;
 
-        virtual const IFixture& parent() const noexcept = 0;
+        virtual const IFixture* parent() const noexcept = 0;
         virtual Description description() const noexcept = 0;
         virtual Filename filename() const noexcept = 0;
         virtual LineNumber lineNumber() const noexcept = 0;
@@ -41,4 +41,4 @@ namespace CBSW::Unit {
     };
 }
 
-CBSW::Unit::IFixture& cbsw_unit_fixture();
+CBSW::Unit::IFixture* cbsw_unit_fixture();

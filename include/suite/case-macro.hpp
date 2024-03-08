@@ -10,7 +10,7 @@
     void CBSW_UNIT_CASE_MAKE_FUNCTION(COUNTER)(::CBSW::Unit::ICase& cbsw_unit_case);                                                                                          \
                                                                                                                                                                         \
     /*Allocate a local variable giving it the current fixture from the scope, a pointer to the function, the description, filename, and line number*/                   \
-    const ::CBSW::Unit::Case CBSW_UNIT_CASE_MAKE_VARIABLE(COUNTER)(cbsw_unit_fixture(), &CBSW_UNIT_CASE_MAKE_FUNCTION(COUNTER), description, FILE, LINE);   \
+    const ::CBSW::Unit::Case CBSW_UNIT_CASE_MAKE_VARIABLE(COUNTER)(*cbsw_unit_fixture(), &CBSW_UNIT_CASE_MAKE_FUNCTION(COUNTER), description, FILE, LINE);   \
                                                                                                                                                                         \
     /*Allow the user to provide the implementation*/                                                                                                                    \
     void CBSW_UNIT_CASE_MAKE_FUNCTION(COUNTER)([[maybe_unused]]::CBSW::Unit::ICase& cbsw_unit_case)

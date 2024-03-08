@@ -6,8 +6,7 @@
 
 namespace CBSW::Unit {
     RootFixture::RootFixture() noexcept:
-    //We do a dodgy cast of the parent to null, so the constructor still can accept a reference, but it can be used to detect end of "fixture chain"
-        Fixture(*reinterpret_cast<IFixture*>(static_cast<void*>(nullptr)), "", "", 0)
+        Fixture(nullptr, "", "", 0)
     {}
 
     void RootFixture::run(IReporter& reporter, IReport& report, ISettings& settings) noexcept {
@@ -53,12 +52,12 @@ namespace CBSW::Unit {
     }
 }
 
-::CBSW::Unit::IFixture& cbsw_unit_fixture() {
+::CBSW::Unit::IFixture* cbsw_unit_fixture() {
     return cbsw_unit_root_fixture();
 }
 
-::CBSW::Unit::RootFixture& cbsw_unit_root_fixture() {
+::CBSW::Unit::RootFixture* cbsw_unit_root_fixture() {
     static ::CBSW::Unit::RootFixture root_fixture;
-    return root_fixture;
+    return &root_fixture;
 
 }

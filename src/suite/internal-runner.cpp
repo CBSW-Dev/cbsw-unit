@@ -89,7 +89,7 @@ namespace CBSW::Unit {
     }
 
     int InternalRunner::run(IReporter& reporter) noexcept {
-        cbsw_unit_root_fixture().run(reporter, *_report, _settings);
+        cbsw_unit_root_fixture()->run(reporter, *_report, _settings);
         return EXIT_SUCCESS;
     }
 

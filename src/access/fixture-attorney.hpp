@@ -8,7 +8,7 @@ namespace CBSW::Unit {
         class FixtureAttorney {
             friend class ::CBSW::Unit::Fixture;
         private:
-            static void addFixture(IFixture& parent, IFixture& fixture) noexcept;
+            static void addFixture(IFixture* parent, IFixture& fixture) noexcept;
         };
     }
 }

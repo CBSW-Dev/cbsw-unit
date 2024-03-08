@@ -11,8 +11,8 @@ namespace CBSW_UNIT_FIXTURE_MAKE_NAMESPACE(COUNTER) {                           
     ::CBSW::Unit::Fixture CBSW_UNIT_FIXTURE_MAKE_VARIABLE(COUNTER)(cbsw_unit_fixture(), description, FILE, LINE);                           \
     /*Create a function that can be used to access this variable (providing a consitent name so that the case macros know what to call)*/   \
     /*This works because scope resolution will pick up the "closest" function with this name"*/                                             \
-    [[maybe_unused]] ::CBSW::Unit::Fixture& cbsw_unit_fixture() {                                                                           \
-        return CBSW_UNIT_FIXTURE_MAKE_VARIABLE(COUNTER);                                                                                    \
+    [[maybe_unused]] ::CBSW::Unit::Fixture* cbsw_unit_fixture() {                                                                           \
+        return &CBSW_UNIT_FIXTURE_MAKE_VARIABLE(COUNTER);                                                                                    \
     }                                                                                                                                       \
 }                                                                                                                                           \
 /*Now the user can provide the content of the namespace providing their own braces*/                                                        \

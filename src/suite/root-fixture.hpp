@@ -14,4 +14,4 @@ namespace CBSW::Unit {
     };
 }
 
-::CBSW::Unit::RootFixture& cbsw_unit_root_fixture();
+::CBSW::Unit::RootFixture* cbsw_unit_root_fixture();

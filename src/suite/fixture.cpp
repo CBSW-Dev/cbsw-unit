@@ -9,7 +9,7 @@
 #include "report/ireport.hpp"
 
 namespace CBSW::Unit {
-    Fixture::Fixture(IFixture& parent, Description description, Filename filename, LineNumber lineNumber) noexcept:
+    Fixture::Fixture(IFixture* parent, Description description, Filename filename, LineNumber lineNumber) noexcept:
         _parent(parent),
         _description(description),
         _filename(filename),
@@ -44,7 +44,7 @@ namespace CBSW::Unit {
         reporter.onEndFixture(*this);
     }
 
-    const IFixture& Fixture::parent() const noexcept {
+    const IFixture* Fixture::parent() const noexcept {
         return _parent;
     }
 
