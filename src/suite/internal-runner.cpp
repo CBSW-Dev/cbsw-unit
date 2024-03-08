@@ -65,7 +65,6 @@ namespace CBSW::Unit {
             return 0;
         }
 
-        //TODO: Algorithmic improvements, this could be O(N+M) by sorting the vector
         for (auto it = arguments.begin(), end = arguments.end(); it != end; ++it) {
             if (ValidLibraryArguments::instance().find(*it) != ValidLibraryArguments::instance().end()) {
                 it = arguments.erase(it);
