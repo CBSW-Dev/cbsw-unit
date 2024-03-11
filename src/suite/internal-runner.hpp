@@ -2,11 +2,12 @@
 #include "settings/internal-settings.hpp"
 #include "suite/runner.hpp"
 #include "plugin/arguments.hpp"
+#include "plugin/plugins.hpp"
 
 namespace CBSW::Unit {
     class IReport;
 
-    class InternalRunner: public Runner {
+    class InternalRunner: public Runner, public PluginFinal {
     public:
         InternalRunner() noexcept;
         ~InternalRunner() noexcept;
@@ -18,10 +19,14 @@ namespace CBSW::Unit {
         ISettings& settings() noexcept override;
 
         int run() noexcept override;
-        int run(IReporter& reporter) noexcept override;
 
         void setReporter(IReporter& reporter) noexcept;
         void setOutput(Output& output) noexcept;
+
+        void installPlugin(Plugin& plugin) noexcept;
+
+        int finalPluginFunction();
+
     private:
         void initialiseReporter() noexcept;
         void initialiseOutput() noexcept;
@@ -32,5 +37,7 @@ namespace CBSW::Unit {
         IReporter* _reporter;
         IReport* _report;
         InternalSettings _settings;
+        Arguments* _arguments;
+        Plugins _plugins;
     };
 }

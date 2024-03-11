@@ -1,18 +1,21 @@
 #include "pch.hpp"
 #include "plugins.hpp"
 
+#include "utility/unused.hpp"
+
 namespace CBSW::Unit {
     class PluginChainFinal: public PluginNextHandler {
     public:
-        PluginChainFinal(PluginFinalFunction final):
+        PluginChainFinal(PluginFinal& final):
             _final(final)
         {}
 
         int next(Arguments& arguments) noexcept {
-            return _final(arguments);
+            unused(arguments);
+            return _final.finalPluginFunction();
         }
     private:
-        PluginFinalFunction _final;
+        PluginFinal& _final;
     };
 
     class PluginChainWrapper: public PluginNextHandler {
@@ -30,7 +33,7 @@ namespace CBSW::Unit {
         PluginNextHandler& _next;
     };
 
-    int Plugins::run(Arguments& arguments, PluginFinalFunction final) {
+    int Plugins::run(Arguments& arguments, PluginFinal& final) {
         std::list<PluginNextHandler*> nextHandlers;
 
         PluginChainFinal* finalChain = new PluginChainFinal(final);
@@ -57,9 +60,4 @@ namespace CBSW::Unit {
     void Plugins::registerPlugin(Plugin& plugin) {
         _plugins.push_back(&plugin);
     }
-}
-
-CBSW::Unit::Plugins& cbsw_unit_plugins() noexcept {
-    static CBSW::Unit::Plugins plugins;
-    return plugins;
 }

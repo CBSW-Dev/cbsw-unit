@@ -3,10 +3,17 @@
 #include "plugin/plugin.hpp"
 
 namespace CBSW::Unit {
-    using PluginFinalFunction = int (*)(Arguments& arguments);
+
+    class PluginFinal {
+    public:
+        virtual ~PluginFinal() = default;
+
+        virtual int finalPluginFunction() = 0;
+    };
+
     class Plugins {
     public:
-        int run(Arguments& arguments, PluginFinalFunction final);
+        int run(Arguments& arguments, PluginFinal& final);
 
         void registerPlugin(Plugin& plugin);
     private:
@@ -14,6 +21,3 @@ namespace CBSW::Unit {
         PluginList _plugins;
     };
 }
-
-CBSW::Unit::Plugins& cbsw_unit_plugins() noexcept;
-

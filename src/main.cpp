@@ -11,14 +11,10 @@ int delegateMain(::CBSW::Unit::Arguments& arguments) {
     return cbsw_unit_main(arguments, runner);
 }
 
-int delegatePlugins(::CBSW::Unit::Arguments& arguments) {
-    return cbsw_unit_plugins().run(arguments, &delegateMain);
-}
-
 int main(int argc, char** argv) {
     ::CBSW::Unit::Arguments arguments(argv, argv + argc);
     try {
-        return runner.initialise(arguments, &delegatePlugins);
+        return runner.initialise(arguments, &delegateMain);
 
     } catch (std::exception& exception) {
         std::string error = exception.what();

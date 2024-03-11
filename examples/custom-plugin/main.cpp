@@ -36,5 +36,6 @@ suite("Test Suite") {
 CustomPlugin customPlugin;
 
 int cbsw_unit_main(::CBSW::Unit::Arguments& arguments, ::CBSW::Unit::Runner& runner) {
+    runner.installPlugin(customPlugin);
     return runner.run();
 }

@@ -36,7 +36,8 @@ namespace CBSW::Unit {
         _output(nullptr),
         _deleteReporter(true),
         _reporter(nullptr),
-        _report(new Report())
+        _report(new Report()),
+        _arguments(nullptr)
     {}
 
     InternalRunner::~InternalRunner() noexcept {
@@ -50,6 +51,7 @@ namespace CBSW::Unit {
     }
 
     int InternalRunner::initialise(Arguments& arguments, int (*next)(Arguments&)) {
+        _arguments = &arguments;
         ArgumentParser argumentParser(arguments);
         _settings.loadFromArgs(argumentParser);
 
@@ -83,12 +85,12 @@ namespace CBSW::Unit {
     }
 
     int InternalRunner::run() noexcept {
-        run(*_reporter);
+        return _plugins.run(*_arguments, *this);
         return EXIT_SUCCESS;
     }
 
-    int InternalRunner::run(IReporter& reporter) noexcept {
-        cbsw_unit_root_fixture()->run(reporter, *_report, _settings);
+    int InternalRunner::finalPluginFunction() {
+        cbsw_unit_root_fixture()->run(*_reporter, *_report, _settings);
         return EXIT_SUCCESS;
     }
 
@@ -107,6 +109,10 @@ namespace CBSW::Unit {
         _output = &output;
         _reporter->setOutput(output);
         _deleteOutput = false;
+    }
+
+    void InternalRunner::installPlugin(Plugin& plugin) noexcept {
+        _plugins.registerPlugin(plugin);
     }
 
     void InternalRunner::initialiseReporter() noexcept {
@@ -128,4 +134,6 @@ namespace CBSW::Unit {
             _output = new OStreamOutput(std::cout);
         }
     }
+
+
 }

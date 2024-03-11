@@ -30,7 +30,6 @@ target_sources(cbsw-unit PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/report/deferred/deferred-reporter-action-list.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/report/report.cpp
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/plugin/plugin.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/plugin/plugins.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/settings/internal-settings.cpp

@@ -12,7 +12,6 @@ namespace CBSW::Unit {
 
     class Plugin {
     public:
-        Plugin();
         virtual ~Plugin() = default;
         virtual int initialise(Arguments& arguments, PluginNextHandler& next) = 0;
     };
