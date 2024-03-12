@@ -1,10 +1,6 @@
 #include "pch.hpp"
 #include "deferred-reporter.hpp"
-#include "deferred-reporter-fixture-action.hpp"
-#include "deferred-reporter-case-action.hpp"
-#include "deferred-reporter-case-failure-action.hpp"
-#include "deferred-reporter-before-each-action.hpp"
-#include "deferred-reporter-after-each-action.hpp"
+#include "deferred-reporter-function-action.hpp"
 
 namespace CBSW::Unit {
     DeferredReporter::DeferredReporter(IReporter& deferred, std::mutex& outputMutex) noexcept:
@@ -16,48 +12,48 @@ namespace CBSW::Unit {
         _deferred.onBegin();
     }
 
-    void DeferredReporter::onEnd(const IReport& report) noexcept {
-        _deferred.onEnd(report);
+    void DeferredReporter::onEnd() noexcept {
+        _deferred.onEnd();
     };
 
     void DeferredReporter::onBeginFixture(const IFixture& fixture) noexcept {
-        _actions.push_back(new DeferredReporterFixtureAction(&IReporter::onBeginFixture, fixture));
+        _actions.push_back(new DeferredReporterFunctionAction<IFixture>(fixture, &IReporter::onBeginFixture));
     }
 
     void DeferredReporter::onEndFixture(const IFixture& fixture) noexcept {
-        _actions.push_back(new DeferredReporterFixtureAction(&IReporter::onEndFixture, fixture));
+        _actions.push_back(new DeferredReporterFunctionAction<IFixture>(fixture, &IReporter::onEndFixture));
     }
 
     void DeferredReporter::onBeginCase(const ICase& testCase) noexcept {
-        _actions.push_back(new DeferredReporterCaseAction(&IReporter::onBeginCase, testCase));
+        _actions.push_back(new DeferredReporterFunctionAction(testCase, &IReporter::onBeginCase));
     }
 
     void DeferredReporter::onCaseSuccess(const ICase& testCase) noexcept {
-        _actions.push_back(new DeferredReporterCaseAction(&IReporter::onCaseSuccess, testCase));
+        _actions.push_back(new DeferredReporterFunctionAction(testCase, &IReporter::onCaseSuccess));
     }
 
-    void DeferredReporter::onCaseFailure(uint32_t failureNumber, const Exception& exception) noexcept {
-        _actions.push_back(new DeferredReporterCaseFailureAction(&IReporter::onCaseFailure, failureNumber, exception));
+    void DeferredReporter::onCaseFailure(const Exception& exception) noexcept {
+        _actions.push_back(new DeferredReporterFunctionAction(exception, &IReporter::onCaseFailure));
     }
 
     void DeferredReporter::onEndCase(const ICase& testCase) noexcept {
-        _actions.push_back(new DeferredReporterCaseAction(&IReporter::onEndCase, testCase));
+        _actions.push_back(new DeferredReporterFunctionAction(testCase, &IReporter::onEndCase));
     }
 
     void DeferredReporter::onBeginBeforeEach(const IBeforeEach& beforeEach) noexcept {
-        _actions.push_back(new DeferredReporterBeforeEachAction(&IReporter::onBeginBeforeEach, beforeEach));
+        _actions.push_back(new DeferredReporterFunctionAction(beforeEach, &IReporter::onBeginBeforeEach));
     }
 
     void DeferredReporter::onEndBeforeEach(const IBeforeEach& beforeEach) noexcept {
-        _actions.push_back(new DeferredReporterBeforeEachAction(&IReporter::onEndBeforeEach, beforeEach));
+        _actions.push_back(new DeferredReporterFunctionAction(beforeEach, &IReporter::onEndBeforeEach));
     }
 
     void DeferredReporter::onBeginAfterEach(const IAfterEach& afterEach) noexcept {
-        _actions.push_back(new DeferredReporterAfterEachAction(&IReporter::onBeginAfterEach, afterEach));
+        _actions.push_back(new DeferredReporterFunctionAction(afterEach, &IReporter::onBeginAfterEach));
     }
 
     void DeferredReporter::onEndAfterEach(const IAfterEach& afterEach) noexcept {
-        _actions.push_back(new DeferredReporterAfterEachAction(&IReporter::onEndAfterEach, afterEach));
+        _actions.push_back(new DeferredReporterFunctionAction(afterEach, &IReporter::onEndAfterEach));
     }
 
     void DeferredReporter::setOutput(Output& output) noexcept {

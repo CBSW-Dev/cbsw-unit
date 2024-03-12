@@ -27,21 +27,22 @@ namespace CBSW::Unit {
         (*_output) << _output->endl;
     }
 
-    void DotReporter::onEnd(const IReport& report) noexcept {
+    void DotReporter::onEnd() noexcept {
         (*_output) << _output->endl << _output->endl;
-        printSuccessfulCases(*_output, report);
-        printFailedCases(*_output, report);
+        printSuccessfulCases(*_output, _report);
+        printFailedCases(*_output, _report);
         (*_output) << _output->endl;
     }
 
     void DotReporter::onCaseSuccess(const ICase& testCase) noexcept {
         unused(testCase);
         (*_output) << _output->status().success << ".";
+        _report.onSuccess(testCase);
     }
 
-    void DotReporter::onCaseFailure(uint32_t failureNumber, const Exception& exception) noexcept {
-        unused(failureNumber, exception);
+    void DotReporter::onCaseFailure(const Exception& exception) noexcept {
         (*_output) << _output->status().failure << "!";
+        _report.onFailure(exception);
     }
 
     void DotReporter::setOutput(Output& output) noexcept {

@@ -14,7 +14,7 @@ namespace CBSW::Unit {
         void addAfterEach(IAfterEach& afterEach) noexcept override;
         void addFixture(IFixture& fixture) noexcept override;
 
-        void run(IReporter& reporter, IReport& report) noexcept override;
+        void run(IReporter& reporter) noexcept override;
         const IFixture* parent() const noexcept override;
         Description description() const noexcept override;
         Filename filename() const noexcept override;
@@ -34,7 +34,7 @@ namespace CBSW::Unit {
         using AfterEachList = std::list<IAfterEach*>;
         AfterEachList _afterEachs;
     private:
-        void runBeforeEachs(IReporter& reporter, IReport& report) noexcept;
-        void runAfterEachs(IReporter& reporter, IReport& report) noexcept;
+        void runBeforeEachs(IReporter& reporter) noexcept;
+        void runAfterEachs(IReporter& reporter) noexcept;
     };
 }

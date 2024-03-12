@@ -16,8 +16,9 @@ namespace CBSW::Unit {
             output << output.status().failure << output.characters().cross << " " << failedCases << " of " << totalCases << " tests failed" << output.status().reset << Output::endl;
             output << Output::endl;
 
+            uint32_t index = 0;
             for (auto failure: report.failedCases()) {
-                output << output.status().info << failure.number << ") " << failure.testCase->description() << ": ";
+                output << output.status().info << (++index) << ") " << failure.exception.testCase().description() << ": ";
                 output << output.status().failure << failure.exception.description() << "\r\n";
                 output << output.status().trace << "  @ " << failure.exception.filename() << ":" << failure.exception.lineNumber()<< output.status().reset << Output::endl;
             }
@@ -38,15 +39,16 @@ namespace CBSW::Unit {
         }
     }
     SpecReporter::SpecReporter(Output& output) noexcept:
-        _output(&output)
+        _output(&output),
+        _failureNumber(0)
     {}
 
     void SpecReporter::onBegin() noexcept {
         (*_output) << _output->endl;
     }
 
-    void SpecReporter::onEnd(const IReport& report) noexcept {
-        printOutputReport(*_output, report);
+    void SpecReporter::onEnd() noexcept {
+        printOutputReport(*_output, _report);
         (*_output) << _output->endl;
     }
 
@@ -66,10 +68,12 @@ namespace CBSW::Unit {
 
     void SpecReporter::onCaseSuccess(const ICase& testCase) noexcept {
         (*_output) << _output->status().success << _indent << _output->characters().tick << ' ' << testCase.description() << _output->status().reset << _output->endl;
+        _report.onSuccess(testCase);
     }
 
-    void SpecReporter::onCaseFailure(uint32_t failureNumber, const Exception& exception) noexcept {
-        (*_output) << _output->status().failure << _indent << failureNumber << ") " << exception.testCase().description() << _output->status().reset << _output->endl;
+    void SpecReporter::onCaseFailure(const Exception& exception) noexcept {
+        (*_output) << _output->status().failure << _indent << (++_failureNumber) << ") " << exception.testCase().description() << _output->status().reset << _output->endl;
+        _report.onFailure(exception);
     }
 
     void SpecReporter::onEndCase(const ICase& testCase) noexcept {

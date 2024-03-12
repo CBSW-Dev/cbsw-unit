@@ -46,14 +46,14 @@ namespace CBSW::Unit {
         //release the lock
     }
 
-    void RunnableThreadPool::runRunnable(IRunnable& runnable, IReporter& reporter, IReport& report) {
+    void RunnableThreadPool::runRunnable(IRunnable& runnable, IReporter& reporter) {
         //acquire the lock
         std::lock_guard<std::mutex> lock(_mutex);
 
         //find the free thread slot and create a new runner
         for (uint32_t i = 0; i < _capacity; ++i) {
             if (_threads[i] == nullptr) {
-                _threads[i] = new RunnableThread(runnable, reporter, report, _sync);
+                _threads[i] = new RunnableThread(runnable, reporter, _sync);
                 break;
             }
         }

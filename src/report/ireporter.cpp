@@ -5,9 +5,7 @@
 namespace CBSW::Unit {
     void IReporter::onBegin() noexcept {}
 
-    void IReporter::onEnd(const IReport& report) noexcept {
-        unused(report);
-    }
+    void IReporter::onEnd() noexcept {}
 
     void IReporter::onBeginFixture(const IFixture& fixture) noexcept {
         unused(fixture);
@@ -25,8 +23,8 @@ namespace CBSW::Unit {
         unused(testCase);
     }
 
-    void IReporter::onCaseFailure(uint32_t failureNumber, const Exception& exception) noexcept {
-        unused(failureNumber, exception);
+    void IReporter::onCaseFailure(const Exception& exception) noexcept {
+        unused(exception);
     }
 
     void IReporter::onEndCase(const ICase& testCase) noexcept {

@@ -7,14 +7,14 @@ public:
     CustomReporter(::CBSW::Unit::Output& output);
 
     void onBegin() noexcept override;
-    void onEnd(const ::CBSW::Unit::IReport& report) noexcept override;
+    void onEnd() noexcept override;
 
     void onBeginFixture(const ::CBSW::Unit::IFixture& fixture) noexcept override;
     void onEndFixture(const ::CBSW::Unit::IFixture& fixture) noexcept override;
 
     void onBeginCase(const ::CBSW::Unit::ICase& testCase) noexcept override;
     void onCaseSuccess(const ::CBSW::Unit::ICase& testCase) noexcept override;
-    void onCaseFailure(uint32_t failureNumber, const ::CBSW::Unit::Exception& exception) noexcept override;
+    void onCaseFailure(const ::CBSW::Unit::Exception& exception) noexcept override;
     void onEndCase(const ::CBSW::Unit::ICase& testCase) noexcept override;
 
     void onBeginBeforeEach(const ::CBSW::Unit::IBeforeEach& beforeEach) noexcept override;

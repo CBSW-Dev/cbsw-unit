@@ -36,12 +36,10 @@ namespace CBSW::Unit {
         _output(nullptr),
         _deleteReporter(true),
         _reporter(nullptr),
-        _report(new Report()),
         _arguments(nullptr)
     {}
 
     InternalRunner::~InternalRunner() noexcept {
-        delete _report;
         if (_deleteReporter) {
             delete _reporter;
         }
@@ -90,7 +88,7 @@ namespace CBSW::Unit {
     }
 
     int InternalRunner::finalPluginFunction() {
-        cbsw_unit_root_fixture()->run(*_reporter, *_report, _settings);
+        cbsw_unit_root_fixture()->run(*_reporter, _settings);
         return EXIT_SUCCESS;
     }
 

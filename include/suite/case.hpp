@@ -13,7 +13,7 @@ namespace CBSW::Unit {
 
         Case(IFixture& fixture, Function function, Description description, Filename filename, LineNumber lineNumber) noexcept;
     private:
-        void run(IReporter& reporter, IReport& report) noexcept override;
+        void run(IReporter& reporter) noexcept override;
 
         const IFixture& parent() const noexcept override;
         Description description() const noexcept override;

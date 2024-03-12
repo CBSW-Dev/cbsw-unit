@@ -10,7 +10,7 @@ namespace CBSW::Unit {
 
         void waitForSpace();
 
-        void runRunnable(IRunnable& runnable, IReporter& reporter, IReport& report);
+        void runRunnable(IRunnable& runnable, IReporter& reporter);
 
         void terminate();
         void join();

@@ -7,10 +7,10 @@ namespace CBSW::Unit {
     class RootFixture: public Fixture {
     public:
         RootFixture() noexcept;
-        void run(IReporter& reporter, IReport& report, ISettings& settings) noexcept;
+        void run(IReporter& reporter, ISettings& settings) noexcept;
     private:
-        void run(IReporter& reporter, IReport& report) noexcept override;
-        void run(IReporter& reporter, IReport& report, uint8_t threadCount) noexcept;
+        void run(IReporter& reporter) noexcept override;
+        void run(IReporter& reporter, uint8_t threadCount) noexcept;
     };
 }
 

@@ -14,7 +14,7 @@ namespace CBSW::Unit {
 
     class RunnableThread {
     public:
-        RunnableThread(IRunnable& runnable, IReporter& reporter, IReport& report, RunnableThreadSynchronisation& synchronisation) noexcept;
+        RunnableThread(IRunnable& runnable, IReporter& reporter, RunnableThreadSynchronisation& synchronisation) noexcept;
         ~RunnableThread();
         bool complete() const volatile;
     private:
@@ -22,7 +22,6 @@ namespace CBSW::Unit {
     private:
         IRunnable& _runnable;
         DeferredReporter _reporter;
-        IReport& _report;
         RunnableThreadSynchronisation& _synchronisation;
 
         bool _complete;

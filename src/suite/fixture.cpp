@@ -34,12 +34,12 @@ namespace CBSW::Unit {
         _afterEachs.push_back(&afterEach);
     }
 
-    void Fixture::run(IReporter& reporter, IReport& report) noexcept {
+    void Fixture::run(IReporter& reporter) noexcept {
         reporter.onBeginFixture(*this);
         for (IRunnable* runnable: _runnables) {
-            runBeforeEachs(reporter, report);
-            runnable->run(reporter, report);
-            runAfterEachs(reporter, report);
+            runBeforeEachs(reporter);
+            runnable->run(reporter);
+            runAfterEachs(reporter);
         }
         reporter.onEndFixture(*this);
     }
@@ -60,15 +60,15 @@ namespace CBSW::Unit {
         return _lineNumber;
     }
 
-    void Fixture::runBeforeEachs(IReporter& reporter, IReport& report) noexcept {
+    void Fixture::runBeforeEachs(IReporter& reporter) noexcept {
         for (IBeforeEach* beforeEach: _beforeEachs) {
-            beforeEach->run(reporter, report);
+            beforeEach->run(reporter);
         }
     }
 
-    void Fixture::runAfterEachs(IReporter& reporter, IReport& report) noexcept {
+    void Fixture::runAfterEachs(IReporter& reporter) noexcept {
         for (IAfterEach* afterEach: _afterEachs) {
-            afterEach->run(reporter, report);
+            afterEach->run(reporter);
         }
     }
 }

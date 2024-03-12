@@ -9,30 +9,30 @@ namespace CBSW::Unit {
         Fixture(nullptr, "", "", 0)
     {}
 
-    void RootFixture::run(IReporter& reporter, IReport& report, ISettings& settings) noexcept {
+    void RootFixture::run(IReporter& reporter, ISettings& settings) noexcept {
         auto threadCount = settings.threads();
         if (threadCount == 1) {
             //use a simpler single threaded routine if the thread count is 1
-            run(reporter, report);
+            run(reporter);
         } else {
             //use the multithreaded routine
-            run(reporter, report, threadCount);
+            run(reporter, threadCount);
         }
     }
 
-    void RootFixture::run(IReporter& reporter, IReport& report) noexcept {
+    void RootFixture::run(IReporter& reporter) noexcept {
         //begin the report
         reporter.onBegin();
 
         for (IRunnable* runnable: _runnables) {
             //iterate through the runnables, running each item
-            runnable->run(reporter, report);
+            runnable->run(reporter);
         }
         //end the report
-        reporter.onEnd(report);
+        reporter.onEnd();
     }
 
-    void RootFixture::run(IReporter& reporter, IReport& report, uint8_t threadCount) noexcept {
+    void RootFixture::run(IReporter& reporter, uint8_t threadCount) noexcept {
         //begin the report
         reporter.onBegin();
 
@@ -43,12 +43,12 @@ namespace CBSW::Unit {
             //iterate through the runnables, waiting for space in the threadpool
             threadPool.waitForSpace();
             //and then using the thread pool to execute the runnable in a thread
-            threadPool.runRunnable(*runnable, reporter, report);
+            threadPool.runRunnable(*runnable, reporter);
         }
         //All runnables have been scheduled, so terminate the pool, this will block waiting for all running threads to complete
         threadPool.terminate();
          //end the report
-        reporter.onEnd(report);
+        reporter.onEnd();
     }
 }
 

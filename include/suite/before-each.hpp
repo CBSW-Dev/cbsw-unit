@@ -12,7 +12,7 @@ namespace CBSW::Unit {
 
         BeforeEach(IFixture& fixture, Function function, Filename filename, LineNumber lineNumber) noexcept;
     private:
-        void run(IReporter& reporter, IReport& report) noexcept override;
+        void run(IReporter& reporter) noexcept override;
 
         const IFixture& parent() const noexcept override;
         Filename filename() const noexcept override;

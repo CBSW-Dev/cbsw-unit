@@ -9,7 +9,7 @@ void CustomReporter::onBegin() noexcept {
     _output << _output.levels().error << (++_index) << ") onBegin" << _output.status().reset << _output.endl;
 }
 
-void CustomReporter::onEnd(const ::CBSW::Unit::IReport& report) noexcept {
+void CustomReporter::onEnd() noexcept {
     _output << _output.levels().error << (++_index) << ") onEnd" << _output.status().reset << _output.endl;
 }
 
@@ -29,7 +29,7 @@ void CustomReporter::onCaseSuccess(const ::CBSW::Unit::ICase& testCase) noexcept
     _output << _output.levels().info << (++_index) << ") onCaseSuccess\r\n    " << testCase.description() << _output.status().reset << _output.endl;
 }
 
-void CustomReporter::onCaseFailure(uint32_t failureNumber, const ::CBSW::Unit::Exception& exception) noexcept {
+void CustomReporter::onCaseFailure(const ::CBSW::Unit::Exception& exception) noexcept {
     _output << _output.levels().info << (++_index) << ") onCaseFailure\r\n    " << exception.testCase().description() << _output.status().reset << _output.endl;
 }
 

@@ -16,22 +16,18 @@ namespace CBSW::Unit {
         Access::CaseAttorney::addCase(fixture, *this);
     }
 
-    void Case::run(IReporter& reporter, IReport& report) noexcept {
-        (void)report;
+    void Case::run(IReporter& reporter) noexcept {
         reporter.onBeginCase(*this);
         try {
             _function(*this);
             reporter.onCaseSuccess(*this);
-            report.onSuccess(*this);
         } catch (const Exception& exception) {
-            uint32_t failureNumber = report.onFailure(*this, exception);
-            reporter.onCaseFailure(failureNumber, exception);
+            reporter.onCaseFailure(exception);
 
 
         } catch (...) {
             const UnhandledException exception(*this);
-            uint32_t failureNumber = report.onFailure(*this, exception);
-            reporter.onCaseFailure(failureNumber, exception);
+            reporter.onCaseFailure(exception);
         }
         reporter.onEndCase(*this);
     }

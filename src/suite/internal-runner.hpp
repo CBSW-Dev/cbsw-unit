@@ -35,7 +35,6 @@ namespace CBSW::Unit {
         Output* _output;
         bool _deleteReporter;
         IReporter* _reporter;
-        IReport* _report;
         InternalSettings _settings;
         Arguments* _arguments;
         Plugins _plugins;

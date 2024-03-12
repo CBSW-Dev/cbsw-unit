@@ -15,8 +15,7 @@ namespace CBSW::Unit {
         Access::BeforeEachAttorney::addBeforeEach(fixture, *this);
     }
 
-    void BeforeEach::run(IReporter& reporter, IReport& report) noexcept {
-        (void)report;
+    void BeforeEach::run(IReporter& reporter) noexcept {
         reporter.onBeginBeforeEach(*this);
         _function();
         reporter.onEndBeforeEach(*this);

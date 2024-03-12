@@ -20,11 +20,19 @@ namespace CBSW::Unit {
         _output(&output)
     {}
 
-    void MinReporter::onEnd(const IReport& report) noexcept {
+    void MinReporter::onEnd() noexcept {
         (*_output) << _output->endl;
-        printSuccessfulCases(*_output, report);
-        printFailedCases(*_output, report);
+        printSuccessfulCases(*_output, _report);
+        printFailedCases(*_output, _report);
         (*_output) << _output->endl;
+    }
+
+    void MinReporter::onCaseSuccess(const ICase& testCase) noexcept {
+        _report.onSuccess(testCase);
+    }
+
+    void MinReporter::onCaseFailure(const Exception& exception) noexcept {
+        _report.onFailure(exception);
     }
 
     void MinReporter::setOutput(Output& output) noexcept {
