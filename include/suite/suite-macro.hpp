@@ -1,1 +1,1 @@
-#define CBSW_UNIT_SUITE(description) namespace
+#define CBSW_UNIT_SUITE(...) namespace

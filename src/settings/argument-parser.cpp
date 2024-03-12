@@ -22,9 +22,9 @@ namespace CBSW::Unit {
 
     ArgumentParser::ArgumentParser(const Arguments& arguments) noexcept {
         for (auto arg: arguments) {
-            std::string argument(arg);
-            if (isCbswUnitArgument(argument)) {
-                _args.insert(parseArgument(argument));
+            KeyValuePair argument = parseArgument(arg);
+            if (isCbswUnitArgument(argument.first)) {
+                _args.insert(argument);
             }
         }
     }
