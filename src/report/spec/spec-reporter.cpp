@@ -16,12 +16,10 @@ namespace CBSW::Unit {
             output << output.status().failure << output.characters().cross << " " << failedCases << " of " << totalCases << " tests failed" << output.status().reset << Output::endl;
             output << Output::endl;
 
-            std::size_t index = 0;
             for (auto failure: report.failedCases()) {
-                output << output.status().info << index << ") " << failure.testCase->description() << ": ";
+                output << output.status().info << failure.number << ") " << failure.testCase->description() << ": ";
                 output << output.status().failure << failure.exception.description() << "\r\n";
                 output << output.status().trace << "  @ " << failure.exception.filename() << ":" << failure.exception.lineNumber()<< output.status().reset << Output::endl;
-                ++index;
             }
         }
 
