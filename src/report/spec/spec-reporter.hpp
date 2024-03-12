@@ -17,13 +17,12 @@ namespace CBSW::Unit {
 
         void onBeginCase(const ICase& testCase) noexcept override;
         void onCaseSuccess(const ICase& testCase) noexcept override;
-        void onCaseFailure( const Exception& exception) noexcept override;
+        void onCaseFailure(uint32_t failureNumber, const Exception& exception) noexcept override;
         void onEndCase(const ICase& testCase) noexcept override;
 
         void setOutput(Output& output) noexcept override;
     private:
         Output* _output;
         OutputIndent _indent;
-        uint32_t _failureNumber;
     };
 }

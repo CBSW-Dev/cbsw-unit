@@ -14,7 +14,7 @@ public:
 
     void onBeginCase(const ::CBSW::Unit::ICase& testCase) noexcept override;
     void onCaseSuccess(const ::CBSW::Unit::ICase& testCase) noexcept override;
-    void onCaseFailure(const ::CBSW::Unit::Exception& exception) noexcept override;
+    void onCaseFailure(uint32_t failureNumber, const ::CBSW::Unit::Exception& exception) noexcept override;
     void onEndCase(const ::CBSW::Unit::ICase& testCase) noexcept override;
 
     void onBeginBeforeEach(const ::CBSW::Unit::IBeforeEach& beforeEach) noexcept override;

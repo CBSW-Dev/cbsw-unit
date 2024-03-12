@@ -24,7 +24,7 @@ namespace CBSW::Unit {
 
         virtual void onBeginCase(const ICase& testCase) noexcept;
         virtual void onCaseSuccess(const ICase& testCase) noexcept;
-        virtual void onCaseFailure(const Exception& exception) noexcept;
+        virtual void onCaseFailure(uint32_t failureNumber, const Exception& exception) noexcept;
         virtual void onEndCase(const ICase& testCase) noexcept;
 
         virtual void onBeginBeforeEach(const IBeforeEach& beforeEach) noexcept;

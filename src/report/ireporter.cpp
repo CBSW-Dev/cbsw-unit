@@ -25,8 +25,8 @@ namespace CBSW::Unit {
         unused(testCase);
     }
 
-    void IReporter::onCaseFailure(const Exception& exception) noexcept {
-        unused(exception);
+    void IReporter::onCaseFailure(uint32_t failureNumber, const Exception& exception) noexcept {
+        unused(failureNumber, exception);
     }
 
     void IReporter::onEndCase(const ICase& testCase) noexcept {

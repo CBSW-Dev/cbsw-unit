@@ -24,13 +24,14 @@ namespace CBSW::Unit {
             reporter.onCaseSuccess(*this);
             report.onSuccess(*this);
         } catch (const Exception& exception) {
-            reporter.onCaseFailure(exception);
-            report.onFailure(*this, exception);
+            uint32_t failureNumber = report.onFailure(*this, exception);
+            reporter.onCaseFailure(failureNumber, exception);
+
 
         } catch (...) {
             const UnhandledException exception(*this);
-            reporter.onCaseFailure(exception);
-            report.onFailure(*this, exception);
+            uint32_t failureNumber = report.onFailure(*this, exception);
+            reporter.onCaseFailure(failureNumber, exception);
         }
         reporter.onEndCase(*this);
     }

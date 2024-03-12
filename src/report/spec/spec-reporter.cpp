@@ -40,8 +40,7 @@ namespace CBSW::Unit {
         }
     }
     SpecReporter::SpecReporter(Output& output) noexcept:
-        _output(&output),
-        _failureNumber(1)
+        _output(&output)
     {}
 
     void SpecReporter::onBegin() noexcept {
@@ -71,9 +70,8 @@ namespace CBSW::Unit {
         (*_output) << _output->status().success << _indent << _output->characters().tick << ' ' << testCase.description() << _output->status().reset << _output->endl;
     }
 
-    void SpecReporter::onCaseFailure(const Exception& exception) noexcept {
-        (*_output) << _output->status().failure << _indent << _failureNumber << ") " << exception.testCase().description() << _output->status().reset << _output->endl;
-        ++_failureNumber;
+    void SpecReporter::onCaseFailure(uint32_t failureNumber, const Exception& exception) noexcept {
+        (*_output) << _output->status().failure << _indent << failureNumber << ") " << exception.testCase().description() << _output->status().reset << _output->endl;
     }
 
     void SpecReporter::onEndCase(const ICase& testCase) noexcept {

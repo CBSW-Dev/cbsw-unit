@@ -39,8 +39,8 @@ namespace CBSW::Unit {
         (*_output) << _output->status().success << ".";
     }
 
-    void DotReporter::onCaseFailure( const Exception& exception) noexcept {
-        unused(exception);
+    void DotReporter::onCaseFailure(uint32_t failureNumber, const Exception& exception) noexcept {
+        unused(failureNumber, exception);
         (*_output) << _output->status().failure << "!";
     }
 

@@ -23,7 +23,7 @@ namespace CBSW::Unit {
 
         void onBeginCase(const ICase& testCase) noexcept override;
         void onCaseSuccess(const ICase& testCase) noexcept override;
-        void onCaseFailure( const Exception& exception) noexcept override;
+        void onCaseFailure(uint32_t failureNumber, const Exception& exception) noexcept override;
         void onEndCase(const ICase& testCase) noexcept override;
 
         void onBeginBeforeEach(const IBeforeEach& beforeEach) noexcept override;

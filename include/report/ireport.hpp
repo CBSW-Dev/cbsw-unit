@@ -10,11 +10,13 @@ namespace CBSW::Unit {
     public:
         virtual ~IReport() = default;
 
-        virtual void onFailure(const ICase& testCase, const Exception& failure) noexcept = 0;
+        //returns the failure number
+        virtual uint32_t onFailure(const ICase& testCase, const Exception& failure) noexcept = 0;
         virtual void onSuccess(const ICase& testCase) noexcept = 0;
         virtual void onSkip(const ICase& testCase) noexcept = 0;
 
         struct FailedCase {
+            uint32_t number;
             const ICase* testCase;
             Exception exception;
         };

@@ -12,7 +12,7 @@ namespace CBSW::Unit {
         void onEnd(const IReport& report) noexcept override;
 
         void onCaseSuccess(const ICase& testCase) noexcept override;
-        void onCaseFailure( const Exception& exception) noexcept override;
+        void onCaseFailure(uint32_t failureNumber, const Exception& exception) noexcept override;
 
         void setOutput(Output& output) noexcept override;
     private:
